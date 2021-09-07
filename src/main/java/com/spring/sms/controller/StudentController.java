@@ -46,8 +46,8 @@ public class StudentController {
 
     @PostMapping("/students/{id}")
     public String updateStudent(@PathVariable Long id
-            , @ModelAttribute("student") Student student
-            , Model model) {
+                               ,@ModelAttribute("student") Student student
+                               ,Model model) {
 
         //get student from database by id
         Student existingStudent = studentService.getStudentById(id);
@@ -57,6 +57,13 @@ public class StudentController {
         existingStudent.setEmail(student.getEmail());
 
         studentService.updateStudent(existingStudent);
+        return "redirect:/students";
+    }
+
+    @GetMapping("students/delete/{id}")
+    public String deleteStudent(@PathVariable Long id
+                               ,Model model) {
+        studentService.deleteStudentById(id);
         return "redirect:/students";
     }
 
